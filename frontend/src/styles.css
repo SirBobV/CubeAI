@@ -1,54 +1,83 @@
+@font-face {
+	font-family: "Digital7";
+	src: url("./assets/digital-7-font/Digital7-rg1mL.ttf") format("truetype");
+}
+
 * {
-  box-sizing: border-box;
+	box-sizing: border-box;
 }
 
 body {
-  margin: 0;
-  font-family: system-ui, sans-serif;
-  background: #111827;
-  color: #f9fafb;
+	margin: 0;
+	font-family: system-ui, sans-serif;
+	background: #111827;
+	color: #f9fafb;
 }
 
 .app-shell {
-  min-height: 100vh;
-  display: flex;
+	min-height: 100vh;
+	display: flex;
 }
 
 .sidebar {
-  width: 240px;
-  padding: 24px;
-  background: #020617;
-  border-right: 1px solid #1f2937;
+	width: 240px;
+	padding: 24px;
+	background: #020617;
+	border-right: 1px solid #1f2937;
 }
 
 .main-panel {
-  flex: 1;
-  padding: 32px;
+	flex: 1;
+	padding: 32px;
 }
 
 .sidebar nav {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
 }
 
 .nav-btn {
-  padding: 10px 12px;
-  border: 0;
-  border-radius: 8px;
-  background: transparent;
-  color: #cbd5e1;
-  text-align: left;
+	width: 100%;
+	padding: 10px 12px;
+	border: 0;
+	border-radius: 8px;
+	background: transparent;
+	color: #cbd5e1;
+	text-align: left;
+	cursor: pointer;
+	display: block;
+	text-decoration: none;
 }
 
 .nav-btn:hover {
-  background: #1e293b;
-  color: #ffffff;
+	background: #162033;
+	color: #ffffff;
+}
+
+.nav-btn.active {
+	background: #2563eb;
+	color: #ffffff;
+	font-weight: 600;
 }
 
 .timer-card {
-  min-height: 360px;
-  background: #0f172a;
-  border: 1px solid #1e293b;
-  border-radius: 12px;
+	min-height: 360px;
+	background: #0f172a;
+	border: 1px solid #1e293b;
+	border-radius: 12px;
+}
+
+.scramble-text {
+	color: #94a3b8;
+	font-size: 18px;
+}
+
+.timer-display {
+	margin: 0;
+	font-size: 96px;
+	font-weight: 300;
+	font-family: "Digital7", monospace;
+	letter-spacing: 2px;
+	color: #f8fafc;
 }
