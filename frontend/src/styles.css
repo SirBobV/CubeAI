@@ -260,3 +260,25 @@ body {
 .solves-table td {
 	color: #e2e8f0;
 }
+
+.timer-display-danger {
+	color: #ef4444;
+}
+
+.timer-display-ready {
+	color: #22c55e;
+}
+
+.timer-page-running {
+	justify-content: center;
+}
+
+.timer-page-running .timer-stage {
+	min-height: 70vh;
+	border-color: transparent;
+	background: transparent;
+}
+
+.timer-page-running .timer-display {
+	font-size: 180px;
+}

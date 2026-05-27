@@ -1,4 +1,8 @@
-import { useState } from "react";
+import { useEffect, useState, useRef } from "react";
+
+function formatTime(milliseconds) {
+	return (milliseconds / 1000).toFixed(2);
+}
 
 function TimerToolbar({
 	currentEvent,
@@ -58,10 +62,20 @@ function ScrambleArea() {
 	);
 }
 
-function TimerStage() {
+function TimerStage({ displayTime, isHoldingSpace, isReadyToStart }) {
+	let timerClassName = "timer-display";
+
+	if (isHoldingSpace && !isReadyToStart) {
+		timerClassName += " timer-display-danger";
+	}
+
+	if (isHoldingSpace && isReadyToStart) {
+		timerClassName += " timer-display-ready";
+	}
+
 	return (
 		<section className="timer-stage">
-			<h3 className="timer-display">0.00</h3>
+			<h3 className={timerClassName}>{displayTime}</h3>
 		</section>
 	);
 }
@@ -146,17 +160,106 @@ function TimerPage() {
 	const [currentEvent, setCurrentEvent] = useState("3x3");
 	const [currentSession, setCurrentSession] = useState("Main");
 
+	const [isRunning, setIsRunning] = useState(false);
+	const [startTime, setStartTime] = useState(null);
+	const [elapsedTime, setElapsedTime] = useState(0);
+
+	const [isHoldingSpace, setIsHoldingSpace] = useState(false);
+	const [isReadyToStart, setIsReadyToStart] = useState(false);
+
+	const readyTimeoutRef = useRef(null);
+
+	useEffect(() => {
+		function handleKeyDown(event) {
+			if (event.code !== "Space") {
+				return;
+			}
+
+			event.preventDefault();
+
+			if (isRunning || isHoldingSpace) {
+				return;
+			}
+
+			setIsHoldingSpace(true);
+			setIsReadyToStart(false);
+
+			readyTimeoutRef = setTimeout(() => {
+				setIsReadyToStart(true);
+			}, 500);
+		}
+
+		function handleKeyUp(event) {
+			if (event.code !== "Space") {
+				return;
+			}
+
+			event.preventDefault();
+
+			if (isRunning) {
+				setIsRunning(false);
+				return;
+			}
+
+			if (isReadyToStart) {
+				setElapsedTime(0);
+				setStartTime(Date.now());
+				setIsRunning(true);
+			}
+
+			setIsHoldingSpace(false);
+			setIsReadyToStart(false);
+			clearTimeout(readyTimeoutId);
+		}
+
+		window.addEventListener("keydown", handleKeyDown);
+		window.addEventListener("keyup", handleKeyUp);
+
+		return () => {
+			window.removeEventListener("keydown", handleKeyDown);
+			window.removeEventListener("keyup", handleKeyUp);
+			clearTimeout(readyTimeoutRef);
+		};
+	}, [isRunning, isHoldingSpace, isReadyToStart]);
+	useEffect(() => {
+		if (!isRunning) {
+			return;
+		}
+
+		const intervalId = setInterval(() => {
+			setElapsedTime(Date.now() - startTime);
+		}, 10);
+
+		return () => {
+			clearInterval(intervalId);
+		};
+	}, [isRunning, startTime]);
+
 	return (
-		<main className="main-panel timer-page">
-			<TimerToolbar
-				currentEvent={currentEvent}
-				onEventChange={setCurrentEvent}
-				currentSession={currentSession}
-				onSessionChange={setCurrentSession}
+		<main
+			className={`main-panel timer-page ${isRunning ? "timer-page-running" : ""}`}
+		>
+			{!isRunning && (
+				<>
+					<TimerToolbar
+						currentEvent={currentEvent}
+						onEventChange={setCurrentEvent}
+						currentSession={currentSession}
+						onSessionChange={setCurrentSession}
+					/>
+					<ScrambleArea />
+				</>
+			)}
+			<TimerStage
+				displayTime={formatTime(elapsedTime)}
+				isHoldingSpace={isHoldingSpace}
+				isReadyToStart={isReadyToStart}
 			/>
-			<ScrambleArea />
-			<TimerStage />
-			<TimerWorkspace />
+			{!isRunning && (
+				<>
+					<TimerWorkspace />
+				</>
+			)}
 		</main>
 	);
 }
