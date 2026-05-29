@@ -48,13 +48,11 @@ function TimerToolbar({
 	);
 }
 
-function ScrambleArea() {
+function ScrambleArea({ currentScramble }) {
 	return (
 		<section className="scramble-area">
 			<div className="scramble-text-panel">
-				<p className="scramble-text">
-					R U R&apos; F2 D L2 U&apos; B R2 F&apos; U2
-				</p>
+				<p className="scramble-text">{currentScramble}</p>
 			</div>
 
 			<div className="scramble-visual">Visual scramble</div>
@@ -167,7 +165,31 @@ function TimerPage() {
 	const [isHoldingSpace, setIsHoldingSpace] = useState(false);
 	const [isReadyToStart, setIsReadyToStart] = useState(false);
 
+	const [currentScramble, setCurrentScramble] = useState(
+		"R U R' F2 D L2 U' B R2 F' U2",
+	);
+	const [solves, setSolves] = useState([]);
+
 	const readyTimeoutRef = useRef(null);
+	const isRunningRef = useRef(false);
+	const isHoldingSpaceRef = useRef(false);
+	const isReadyToStartRef = useRef(false);
+	const startTimeRef = useRef(null);
+	const currentScrambleRef = useRef(currentScramble);
+	const currentEventRef = useRef(currentEvent);
+	const currentSessionRef = useRef(currentSession);
+
+	useEffect(() => {
+		isRunningRef.current = isRunning;
+		isHoldingSpaceRef.current = isHoldingSpace;
+		isReadyToStartRef.current = isReadyToStart;
+	}, [isRunning, isHoldingSpace, isReadyToStart]);
+
+	useEffect(() => {
+		currentScrambleRef.current = currentScramble;
+		currentEventRef.current = currentEvent;
+		currentSessionRef.current = currentSession;
+	}, [currentScramble, currentEvent, currentSession]);
 
 	useEffect(() => {
 		function handleKeyDown(event) {
@@ -177,15 +199,18 @@ function TimerPage() {
 
 			event.preventDefault();
 
-			if (isRunning || isHoldingSpace) {
+			if (isRunningRef.current || isHoldingSpaceRef.current) {
 				return;
 			}
 
 			setIsHoldingSpace(true);
+			isHoldingSpaceRef.current = true;
 			setIsReadyToStart(false);
+			isReadyToStartRef.current = false;
 
-			readyTimeoutRef = setTimeout(() => {
+			readyTimeoutRef.current = setTimeout(() => {
 				setIsReadyToStart(true);
+				isReadyToStartRef.current = true;
 			}, 500);
 		}
 
@@ -196,20 +221,41 @@ function TimerPage() {
 
 			event.preventDefault();
 
-			if (isRunning) {
+			if (isRunningRef.current) {
+				const finalTime = Date.now() - startTimeRef.current;
+
+				setElapsedTime(finalTime);
+
+				const newSolve = {
+					id: crypto.randomUUID(),
+					time: finalTime,
+					scramble: currentScrambleRef.current,
+					event: currentEventRef.current,
+					session: currentSessionRef.current,
+					createdAt: new Date().toISOString(),
+				};
+
+				setSolves((currentSolves) => [newSolve, ...currentSolves]);
 				setIsRunning(false);
+				isRunningRef.current = false;
 				return;
 			}
 
-			if (isReadyToStart) {
+			if (isReadyToStartRef.current) {
+				const now = Date.now();
+
 				setElapsedTime(0);
-				setStartTime(Date.now());
+				setStartTime(now);
+				startTimeRef.current = now;
 				setIsRunning(true);
+				isRunningRef.current = true;
 			}
 
 			setIsHoldingSpace(false);
+			isHoldingSpaceRef.current = false;
 			setIsReadyToStart(false);
-			clearTimeout(readyTimeoutId);
+			isReadyToStartRef.current = false;
+			clearTimeout(readyTimeoutRef.current);
 		}
 
 		window.addEventListener("keydown", handleKeyDown);
@@ -218,9 +264,9 @@ function TimerPage() {
 		return () => {
 			window.removeEventListener("keydown", handleKeyDown);
 			window.removeEventListener("keyup", handleKeyUp);
-			clearTimeout(readyTimeoutRef);
+			clearTimeout(readyTimeoutRef.current);
 		};
-	}, [isRunning, isHoldingSpace, isReadyToStart]);
+	}, []);
 	useEffect(() => {
 		if (!isRunning) {
 			return;
@@ -247,7 +293,7 @@ function TimerPage() {
 						currentSession={currentSession}
 						onSessionChange={setCurrentSession}
 					/>
-					<ScrambleArea />
+					<ScrambleArea currentScramble={currentScramble} />
 				</>
 			)}
 			<TimerStage
