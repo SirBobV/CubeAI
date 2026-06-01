@@ -1,4 +1,5 @@
 import { useEffect, useState, useRef } from "react";
+import SolvesTable from "../components/SolvesTable";
 
 function formatTime(milliseconds) {
 	return (milliseconds / 1000).toFixed(2);
@@ -29,8 +30,18 @@ function TimerToolbar({
 					<option value="3x3">3x3</option>
 					<option value="4x4">4x4</option>
 					<option value="5x5">5x5</option>
+					<option value="6x6">6x6</option>
+					<option value="7x7">7x7</option>
 					<option value="OH">OH</option>
-					<option value="Blind">Blind</option>
+					<option value="FMC">FMC</option>
+					<option value="3BLD">3BLD</option>
+					<option value="4BLD">4BLD</option>
+					<option value="5BLD">5BLD</option>
+					<option value="Megaminx">Megaminx</option>
+					<option value="Pyraminx">Pyraminx</option>
+					<option value="Skewb">Skewb</option>
+					<option value="Square-1">Square-1</option>
+					<option value="Clock"></option>
 				</select>
 				<select
 					className="timer-select"
@@ -78,7 +89,7 @@ function TimerStage({ displayTime, isHoldingSpace, isReadyToStart }) {
 	);
 }
 
-function TimerWorkspace() {
+function TimerWorkspace({ solves }) {
 	return (
 		<section className="timer-workspace">
 			<aside className="stats-column">
@@ -120,41 +131,12 @@ function TimerWorkspace() {
 					</div>
 				</div>
 			</aside>
-
-			<section className="solves-table-panel">
-				<header className="panel-header">
-					<h3>Solves</h3>
-				</header>
-
-				<div className="solves-table-scroll">
-					<table className="solves-table">
-						<thead>
-							<tr>
-								<th>#</th>
-								<th>Time</th>
-								<th>Ao5</th>
-								<th>Ao12</th>
-								<th>Scramble</th>
-							</tr>
-						</thead>
-
-						<tbody>
-							<tr>
-								<td>1</td>
-								<td>--</td>
-								<td>--</td>
-								<td>--</td>
-								<td>R U R&apos; F2 D L2...</td>
-							</tr>
-						</tbody>
-					</table>
-				</div>
-			</section>
+			<SolvesTable solves={solves} />
 		</section>
 	);
 }
 
-function TimerPage() {
+function TimerPage({ solves, setSolves }) {
 	const [currentEvent, setCurrentEvent] = useState("3x3");
 	const [currentSession, setCurrentSession] = useState("Main");
 
@@ -168,7 +150,6 @@ function TimerPage() {
 	const [currentScramble, setCurrentScramble] = useState(
 		"R U R' F2 D L2 U' B R2 F' U2",
 	);
-	const [solves, setSolves] = useState([]);
 
 	const readyTimeoutRef = useRef(null);
 	const isRunningRef = useRef(false);
@@ -303,7 +284,7 @@ function TimerPage() {
 			/>
 			{!isRunning && (
 				<>
-					<TimerWorkspace />
+					<TimerWorkspace solves={solves} />
 				</>
 			)}
 		</main>
