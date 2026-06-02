@@ -159,6 +159,7 @@ function TimerPage({ solves, setSolves }) {
 	const currentScrambleRef = useRef(currentScramble);
 	const currentEventRef = useRef(currentEvent);
 	const currentSessionRef = useRef(currentSession);
+	const didBailRef = useRef(false);
 
 	useEffect(() => {
 		isRunningRef.current = isRunning;
@@ -222,6 +223,11 @@ function TimerPage({ solves, setSolves }) {
 				return;
 			}
 
+			if (didBailRef.current) {
+				didBailRef.current = false;
+				return;
+			}
+
 			if (isReadyToStartRef.current) {
 				const now = Date.now();
 
@@ -262,6 +268,27 @@ function TimerPage({ solves, setSolves }) {
 		};
 	}, [isRunning, startTime]);
 
+	useEffect(() => {
+		function handleBail(event) {
+			if (event.key !== "x") {
+				return;
+			}
+			if (isHoldingSpace && isReadyToStart) {
+				didBailRef.current = true;
+				setIsHoldingSpace(false);
+				isHoldingSpaceRef.current = false;
+				setIsReadyToStart(false);
+				isReadyToStartRef.current = false;
+				clearTimeout(readyTimeoutRef.current);
+				return;
+			}
+		}
+		window.addEventListener("keydown", handleBail);
+
+		return () => {
+			window.removeEventListener("keydown", handleBail);
+		};
+	});
 	return (
 		<main
 			className={`main-panel timer-page ${isRunning ? "timer-page-running" : ""}`}
