@@ -65,8 +65,6 @@ function ScrambleArea({ currentScramble }) {
 			<div className="scramble-text-panel">
 				<p className="scramble-text">{currentScramble}</p>
 			</div>
-
-			<div className="scramble-visual">Visual scramble</div>
 		</section>
 	);
 }

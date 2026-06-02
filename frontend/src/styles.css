@@ -2,6 +2,25 @@
 	font-family: "Digital7";
 	src: url("./assets/digital-7-font/Digital7-rg1mL.ttf") format("truetype");
 }
+
+:root {
+	/* containers */
+	--bg: #05070a;
+	--l1: #0f1318;
+	--l2: #171c23;
+	--l3: #222831;
+
+	/* accent / selected item */
+	--at: #4f8cff;
+
+	/* borders */
+	--br: #313843;
+
+	/* text */
+	--pt: #ffffff;
+	--st: #9aa4b2;
+}
+
 /*main page*/
 * {
 	box-sizing: border-box;
@@ -10,8 +29,8 @@
 body {
 	margin: 0;
 	font-family: system-ui, sans-serif;
-	background: #111827;
-	color: #f9fafb;
+	background: var(--bg);
+	color: var(--pt);
 }
 
 .app-shell {
@@ -23,8 +42,8 @@ body {
 .sidebar {
 	width: 240px;
 	padding: 24px;
-	background: #020617;
-	border-right: 1px solid #1f2937;
+	background: var(--l1);
+	border-right: 1px solid var(--br);
 }
 
 .main-panel {
@@ -44,7 +63,7 @@ body {
 	border: 0;
 	border-radius: 8px;
 	background: transparent;
-	color: #cbd5e1;
+	color: var(--st);
 	text-align: left;
 	cursor: pointer;
 	display: block;
@@ -52,29 +71,23 @@ body {
 }
 
 .nav-btn:hover {
-	background: #162033;
-	color: #ffffff;
+	background: var(--l2);
+	color: var(--pt);
 }
 
 .nav-btn.active {
-	background: #2563eb;
-	color: #ffffff;
+	background: var(--at);
+	color: var(--pt);
 	font-weight: 600;
 }
 
 /*TIMER STUFF*/
-.timer-card {
-	min-height: 360px;
-	background: #0f172a;
-	border: 1px solid #1e293b;
-	border-radius: 12px;
-}
 .timer-stage {
-	min-height: 260px;
+	min-height: 300px;
 	display: grid;
 	place-items: center;
-	background: #0b1120;
-	border: 1px solid #1e293b;
+	background: var(--l1);
+	border: 1px solid var(--br);
 	border-radius: 12px;
 }
 
@@ -89,6 +102,7 @@ body {
 
 .timer-page {
 	display: flex;
+	background-color: var(--bg);
 	flex-direction: column;
 	gap: 16px;
 }
@@ -105,7 +119,7 @@ body {
 
 .timer-toolbar p {
 	margin: 4px 0 0;
-	color: #94a3b8;
+	color: var(--st);
 }
 
 .timer-actions {
@@ -115,77 +129,70 @@ body {
 
 .timer-actions button {
 	padding: 8px 12px;
-	border: 1px solid #334155;
+	border: 1px solid var(--br);
 	border-radius: 8px;
-	background: #0f172a;
-	color: #cbd5e1;
+	background: var(--l1);
+	color: var(--st);
 	font: inherit;
 	cursor: pointer;
 }
 
 .timer-actions button:hover {
-	background: #1e293b;
-	border-color: #475569;
-	color: #ffffff;
+	background: var(--l1);
+	border-color: var(--br);
+	color: var(--pt);
 }
 
 .timer-actions button:focus-visible {
-	outline: 2px solid #2563eb;
+	outline: 2px solid var(--at);
 	outline-offset: 2px;
 }
 
 .timer-select {
 	padding: 8px 12px;
-	border: 1px solid #334155;
+	border: 1px solid var(--br);
 	border-radius: 8px;
-	background: #0f172a;
-	color: #cbd5e1;
+	background: var(--l1);
+	color: var(--st);
 	font: inherit;
 	cursor: pointer;
 }
 
 .timer-select:hover {
-	background: #1e293b;
-	border-color: #475569;
-	color: #ffffff;
+	background: var(--l1);
+	border-color: var(--br);
+	color: var(--pt);
 }
 
 .timer-select:focus-visible {
-	outline: 2px solid #2563eb;
+	outline: 2px solid var(--l1);
 	outline-offset: 2px;
 }
 
 .scramble-area {
-	display: grid;
-	grid-template-columns: 1fr 220px;
+	display: flex;
 	gap: 12px;
 }
 
 .scramble-text-panel,
-.scramble-visual,
 .stats-panel,
 .solves-table-panel {
-	background: #0f172a;
-	border: 1px solid #1e293b;
+	background: var(--l2);
+	border: 1px solid var(--br);
 	border-radius: 10px;
 }
 
 .scramble-text-panel {
 	padding: 16px 18px;
+	width: 100%;
 }
 
 .scramble-text {
 	margin: 0;
 	font-size: 20px;
 	line-height: 1.5;
-	color: #e2e8f0;
-}
-
-.scramble-visual {
-	min-height: 96px;
-	display: grid;
-	place-items: center;
-	color: #64748b;
+	color: var(--pt);
+	width: 100%;
 }
 
 .timer-workspace {
@@ -209,22 +216,22 @@ body {
 .solves-table-panel h3 {
 	margin: 0 0 12px;
 	font-size: 14px;
-	color: #cbd5e1;
+	color: var(--st);
 }
 
 .stat-row {
 	display: flex;
 	justify-content: space-between;
 	padding: 8px 0;
-	border-top: 1px solid #1e293b;
+	border-top: 1px solid var(--br);
 }
 
 .stat-row span {
-	color: #94a3b8;
+	color: var(--st);
 }
 
 .stat-row strong {
-	color: #f8fafc;
+	color: var(--pt);
 }
 
 .solves-table-panel {
@@ -249,17 +256,17 @@ body {
 .solves-table th,
 .solves-table td {
 	padding: 10px 12px;
-	border-top: 1px solid #1e293b;
+	border-top: 1px solid var(--br);
 	text-align: left;
 }
 
 .solves-table th {
-	color: #94a3b8;
+	color: var(--st);
 	font-weight: 600;
 }
 
 .solves-table td {
-	color: #e2e8f0;
+	color: var(--pt);
 }
 
 .timer-display-danger {
