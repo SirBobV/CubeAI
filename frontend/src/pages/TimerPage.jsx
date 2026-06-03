@@ -1,5 +1,5 @@
 import { useEffect, useState, useRef } from "react";
-import SolvesTable from "../components/SolvesTable";
+import TimerWorkspace from "../components/TimerWorkspace";
 
 function formatTime(milliseconds) {
 	return (milliseconds / 1000).toFixed(2);
@@ -83,53 +83,6 @@ function TimerStage({ displayTime, isHoldingSpace, isReadyToStart }) {
 	return (
 		<section className="timer-stage">
 			<h3 className={timerClassName}>{displayTime}</h3>
-		</section>
-	);
-}
-
-function TimerWorkspace({ solves }) {
-	return (
-		<section className="timer-workspace">
-			<aside className="stats-column">
-				<div className="stats-panel">
-					<h3>Best</h3>
-
-					<div className="stat-row">
-						<span>Single</span>
-						<strong>--</strong>
-					</div>
-
-					<div className="stat-row">
-						<span>Ao5</span>
-						<strong>--</strong>
-					</div>
-
-					<div className="stat-row">
-						<span>Ao12</span>
-						<strong>--</strong>
-					</div>
-				</div>
-
-				<div className="stats-panel">
-					<h3>Current</h3>
-
-					<div className="stat-row">
-						<span>Single</span>
-						<strong>--</strong>
-					</div>
-
-					<div className="stat-row">
-						<span>Ao5</span>
-						<strong>--</strong>
-					</div>
-
-					<div className="stat-row">
-						<span>Ao12</span>
-						<strong>--</strong>
-					</div>
-				</div>
-			</aside>
-			<SolvesTable solves={solves} />
 		</section>
 	);
 }
@@ -309,7 +262,11 @@ function TimerPage({ solves, setSolves }) {
 			/>
 			{!isRunning && (
 				<>
-					<TimerWorkspace solves={solves} />
+					<TimerWorkspace
+						solves={solves}
+						event={currentEvent}
+						session={currentSession}
+					/>
 				</>
 			)}
 		</main>
