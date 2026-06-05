@@ -1,7 +1,11 @@
-function AlgorithmsPage() {
+import AlgorithmNav from "../components/AlgorithmNav";
+import Algorithms from "../data/algorithms.js";
+
+function AlgorithmsPage({ category }) {
+	alert(Algorithms[category]);
 	return (
 		<main className="main-panel">
-			<h2>Algorithms</h2>
+			<AlgorithmNav />
 		</main>
 	);
 }

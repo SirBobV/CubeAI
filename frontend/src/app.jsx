@@ -23,7 +23,38 @@ function App() {
 				/>
 				<Route path="/sessions" element={<SessionsPage />} />
 				<Route path="/stats" element={<StatsPage solves={solves} />} />
-				<Route path="/algorithms" element={<AlgorithmsPage />} />
+				<Route
+					path="/algorithms"
+					element={<Navigate to="/algorithms/pll" replace />}
+				/>
+				<Route
+					path="/algorithms/oll"
+					element={<AlgorithmsPage category="OLL" />}
+				/>
+				<Route
+					path="/algorithms/pll"
+					element={<AlgorithmsPage category="PLL" />}
+				/>
+				<Route
+					path="/algorithms/f2l"
+					element={<AlgorithmsPage category="F2L" />}
+				/>
+				<Route
+					path="/algorithms/cmll"
+					element={<AlgorithmsPage category="CMLL" />}
+				/>
+				<Route
+					path="/algorithms/lse"
+					element={<AlgorithmsPage category="LSE" />}
+				/>
+				<Route
+					path="/algorithms/cll"
+					element={<AlgorithmsPage category="CLL" />}
+				/>
+				<Route
+					path="/algorithms/ortega"
+					element={<AlgorithmsPage category="Ortega" />}
+				/>
 				<Route path="/trainer" element={<TrainerPage />} />
 			</Routes>
 		</div>

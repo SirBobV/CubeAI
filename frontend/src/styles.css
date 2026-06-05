@@ -290,3 +290,30 @@ body {
 .timer-page-running .timer-display {
 	font-size: 180px;
 }
+
+/* Algorithms stuff */
+.topbar-nav {
+	width: 100%;
+	display: flex;
+	gap: 1rem;
+}
+
+.alg-tab {
+	padding: 10px 12px;
+	border: 1px solid var(--br);
+	border-radius: 8px;
+	background: var(--l1);
+	color: var(--st);
+	text-decoration: none;
+}
+
+.alg-tab:hover {
+	background: var(--l2);
+	color: var(--pt);
+}
+
+.alg-tab.active {
+	background: var(--at);
+	color: var(--pt);
+	font-weight: 600;
+}
