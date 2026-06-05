@@ -7,9 +7,15 @@ function AlgorithmsPage({ category }) {
 			<AlgorithmNav />
 			<div className="algorithms-container">
 				{Algorithms[category].map((algcase) => (
-					<div className="algorithm-card">
-						<h2>{algcase.id}</h2>
-						<h4>{algcase.alg}</h4>
+					<div className="algorithm-card" key={algcase.id}>
+						<div>
+							<h1>{algcase.id}</h1>
+							<h4>{algcase.alg}</h4>
+							<p>{algcase.notes}</p>
+						</div>
+						<img
+							src={"/algorithmImg/" + category + "imgs/" + algcase.id + ".png"}
+						></img>
 					</div>
 				))}
 			</div>

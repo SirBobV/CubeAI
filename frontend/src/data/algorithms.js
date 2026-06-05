@@ -2,14 +2,14 @@ const PLL = [
 	{
 		id: "Jb-perm",
 		alg: "R U R' F' R U R' U' R' F R2 U' R' U'",
-		visual: "img",
+		visual: "/algorithmImg/PLLimgs/Jb-perm.png",
 		notes:
 			"Similar to a T-perm but the 4 moves at the end of a T-perm are moved to the start to make a Jb-perm",
 	},
 	{
 		id: "T-perm",
 		alg: "R U R' U' R' F R2 U' R' U' R U R' F'",
-		visual: "img2",
+		visual: "/algorithmImg/PLLimgs/T-perm.png",
 		notes:
 			"As said in the Jb-perm notes just a rearangement, it is also commonly used for solving the edges while blindfolded in the Old Pochmann method",
 	},
