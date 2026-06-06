@@ -41,6 +41,8 @@ function TimerWorkspace({ solves, event, session }) {
 		return solve.event === event && solve.session === session;
 	});
 
+	usefulSolves.reverse();
+
 	const bestSingle =
 		usefulSolves.length === 0
 			? null
@@ -80,17 +82,23 @@ function TimerWorkspace({ solves, event, session }) {
 
 					<div className="stat-row">
 						<span>Single</span>
-						<strong>{currentSingle ? formatTime(currentSingle.time) : "--"}</strong>
+						<strong>
+							{currentSingle ? formatTime(currentSingle.time) : "--"}
+						</strong>
 					</div>
 
 					<div className="stat-row">
 						<span>Ao5</span>
-						<strong>{currentAo5 === null ? "--" : formatTime(currentAo5)}</strong>
+						<strong>
+							{currentAo5 === null ? "--" : formatTime(currentAo5)}
+						</strong>
 					</div>
 
 					<div className="stat-row">
 						<span>Ao12</span>
-						<strong>{currentAo12 === null ? "--" : formatTime(currentAo12)}</strong>
+						<strong>
+							{currentAo12 === null ? "--" : formatTime(currentAo12)}
+						</strong>
 					</div>
 				</div>
 			</aside>
