@@ -87,7 +87,7 @@ function TimerStage({ displayTime, isHoldingSpace, isReadyToStart }) {
 	);
 }
 
-function TimerPage({ solves, setSolves }) {
+function TimerPage({ solves, setSolves, addSolve }) {
 	const [currentEvent, setCurrentEvent] = useState("3x3");
 	const [currentSession, setCurrentSession] = useState("Main");
 
@@ -168,7 +168,7 @@ function TimerPage({ solves, setSolves }) {
 					createdAt: new Date().toISOString(),
 				};
 
-				setSolves((currentSolves) => [newSolve, ...currentSolves]);
+				addSolve(newSolve);
 				setIsRunning(false);
 				isRunningRef.current = false;
 				return;

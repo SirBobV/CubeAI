@@ -1,5 +1,5 @@
 import { Routes, Route, Navigate } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import Sidebar from "./components/Sidebar.jsx";
 import TimerPage from "./pages/TimerPage.jsx";
@@ -11,6 +11,28 @@ import TrainerPage from "./pages/TrainerPage.jsx";
 function App() {
 	const [solves, setSolves] = useState([]);
 
+	async function addSolve(newSolve) {
+		console.log("addSolve called", newSolve);
+		await fetch("http://localhost:8000/solves", {
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json",
+			},
+			body: JSON.stringify(newSolve),
+		});
+
+		// refresh solves from backend
+		const res = await fetch("http://localhost:8000/solves");
+		const data = await res.json();
+		setSolves(data);
+	}
+
+	useEffect(() => {
+		fetch("http://localhost:8000/solves")
+			.then((res) => res.json())
+			.then((data) => setSolves(data));
+	}, []);
+
 	return (
 		<div className="app-shell">
 			<Sidebar />
@@ -19,7 +41,13 @@ function App() {
 				<Route path="/" element={<Navigate to="/timer" replace />} />
 				<Route
 					path="/timer"
-					element={<TimerPage solves={solves} setSolves={setSolves} />}
+					element={
+						<TimerPage
+							solves={solves}
+							setSolves={setSolves}
+							addSolve={addSolve}
+						/>
+					}
 				/>
 				<Route path="/sessions" element={<SessionsPage />} />
 				<Route path="/stats" element={<StatsPage solves={solves} />} />
