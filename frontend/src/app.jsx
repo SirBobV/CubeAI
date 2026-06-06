@@ -13,7 +13,7 @@ function App() {
 
 	async function addSolve(newSolve) {
 		console.log("addSolve called", newSolve);
-		await fetch("http://localhost:8000/solves", {
+		await fetch("https://cubeai-k2fg.onrender.com/", {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json",
@@ -22,13 +22,13 @@ function App() {
 		});
 
 		// refresh solves from backend
-		const res = await fetch("http://localhost:8000/solves");
+		const res = await fetch("https://cubeai-k2fg.onrender.com/");
 		const data = await res.json();
 		setSolves(data);
 	}
 
 	useEffect(() => {
-		fetch("http://localhost:8000/solves")
+		fetch("https://cubeai-k2fg.onrender.com/")
 			.then((res) => res.json())
 			.then((data) => setSolves(data));
 	}, []);
