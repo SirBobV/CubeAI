@@ -49,7 +49,7 @@ function TimerWorkspace({ solves, event, session, setSolves }) {
 		return solve.event === event && solve.session === session;
 	});
 
-	const API_URL = "https://cubeai-k2fg.onrender.com/solves";
+	const API_URL = "https://cubeai-k2fg.onrender.com";
 
 	usefulSolves.reverse();
 
