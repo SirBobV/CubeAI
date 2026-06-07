@@ -374,3 +374,25 @@ body {
 	width: 140px;
 	height: auto;
 }
+
+.context-menu {
+	position: fixed;
+	background: var(--l3);
+	border: 1px solid var(--br);
+	display: flex;
+	flex-direction: column;
+	z-index: 1000;
+}
+
+.context-menu button {
+	background: none;
+	border: none;
+	color: var(--pt);
+	padding: 0.75rem 1rem;
+	text-align: left;
+	cursor: pointer;
+}
+
+.context-menu button:hover {
+	background-color: var(--l2);
+}

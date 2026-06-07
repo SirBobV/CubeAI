@@ -166,6 +166,7 @@ function TimerPage({ solves, setSolves, addSolve }) {
 					event: currentEventRef.current,
 					session: currentSessionRef.current,
 					createdAt: new Date().toISOString(),
+					penalty: 0,
 				};
 
 				addSolve(newSolve);
@@ -240,6 +241,7 @@ function TimerPage({ solves, setSolves, addSolve }) {
 			window.removeEventListener("keydown", handleBail);
 		};
 	});
+
 	return (
 		<main
 			className={`main-panel timer-page ${isRunning ? "timer-page-running" : ""}`}
@@ -266,6 +268,7 @@ function TimerPage({ solves, setSolves, addSolve }) {
 						solves={solves}
 						event={currentEvent}
 						session={currentSession}
+						setSolves={setSolves}
 					/>
 				</>
 			)}

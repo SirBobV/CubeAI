@@ -8,12 +8,15 @@ import SessionsPage from "./pages/SessionsPage.jsx";
 import StatsPage from "./pages/StatsPage.jsx";
 import TrainerPage from "./pages/TrainerPage.jsx";
 
+const Server = "https://cubeai-k2fg.onrender.com/solves";
+const LocalServer = "http://localhost:8000/solves";
+
 function App() {
 	const [solves, setSolves] = useState([]);
 
 	async function addSolve(newSolve) {
 		console.log("addSolve called", newSolve);
-		await fetch("https://cubeai-k2fg.onrender.com/solves", {
+		await fetch(Server, {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json",
@@ -22,13 +25,13 @@ function App() {
 		});
 
 		// refresh solves from backend
-		const res = await fetch("https://cubeai-k2fg.onrender.com/solves");
+		const res = await fetch(Server);
 		const data = await res.json();
 		setSolves(data);
 	}
 
 	useEffect(() => {
-		fetch("https://cubeai-k2fg.onrender.com/solves")
+		fetch(Server)
 			.then((res) => res.json())
 			.then((data) => setSolves(data));
 	}, []);
