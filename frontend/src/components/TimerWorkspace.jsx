@@ -12,7 +12,7 @@ function getAverage(solves) {
 	return (
 		solves.reduce(
 			(sum, solve) =>
-				sum + solve.time + formatTime(solve.penalty != -1 ? solve.penalty : 0),
+				sum + solve.time + (solve.penalty != -1 ? solve.penalty : 0),
 			0,
 		) / solves.length
 	);
