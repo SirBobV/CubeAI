@@ -11,20 +11,11 @@ function AlgorithmNav() {
 				<NavLink className="alg-tab" to="/algorithms/oll">
 					OLL
 				</NavLink>
-				<NavLink className="alg-tab" to="/algorithms/f2l">
-					F2L
-				</NavLink>
-				<NavLink className="alg-tab" to="/algorithms/cmll">
-					CMLL
-				</NavLink>
-				<NavLink className="alg-tab" to="/algorithms/lse">
-					LSE
+				<NavLink className="alg-tab" to="/algorithms/coll">
+					COLL
 				</NavLink>
 				<NavLink className="alg-tab" to="/algorithms/cll">
 					CLL
-				</NavLink>
-				<NavLink className="alg-tab" to="/algorithms/ortega">
-					Ortega
 				</NavLink>
 			</nav>
 		</div>

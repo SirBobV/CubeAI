@@ -67,24 +67,12 @@ function App() {
 					element={<AlgorithmsPage category="PLL" />}
 				/>
 				<Route
-					path="/algorithms/f2l"
-					element={<AlgorithmsPage category="F2L" />}
-				/>
-				<Route
-					path="/algorithms/cmll"
-					element={<AlgorithmsPage category="CMLL" />}
-				/>
-				<Route
-					path="/algorithms/lse"
-					element={<AlgorithmsPage category="LSE" />}
+					path="/algorithms/coll"
+					element={<AlgorithmsPage category="COLL" />}
 				/>
 				<Route
 					path="/algorithms/cll"
 					element={<AlgorithmsPage category="CLL" />}
-				/>
-				<Route
-					path="/algorithms/ortega"
-					element={<AlgorithmsPage category="Ortega" />}
 				/>
 				<Route path="/trainer" element={<TrainerPage />} />
 			</Routes>
