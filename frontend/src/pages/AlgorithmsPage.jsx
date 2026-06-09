@@ -3,7 +3,7 @@ import Algorithms from "../data/algorithms.js";
 
 function AlgorithmsPage({ category }) {
 	return (
-		<main className="main-panel">
+		<main className="main-panel algsmain">
 			<AlgorithmNav />
 			<div className="algorithms-container">
 				{Algorithms[category].map((algcase) => (
