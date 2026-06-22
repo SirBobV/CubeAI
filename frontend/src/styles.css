@@ -414,3 +414,47 @@ body {
 .context-menu button:hover {
 	background-color: var(--l2);
 }
+
+.outputs {
+	display: flex;
+	flex-direction: column;
+	background-color: var(--l1);
+	height: 80%;
+	width: 100%;
+	border-radius: 20px;
+}
+
+.bot {
+	align-self: flex-start;
+	background-color: var(--l2);
+	padding: 10px;
+	height: auto;
+	width: fit-content;
+	max-width: 80%;
+	border-radius: 20px;
+	margin: 13px;
+}
+
+.user {
+	align-self: flex-end;
+	background-color: var(--at);
+	padding: 10px;
+	height: auto;
+	width: fit-content;
+	max-width: 40%;
+	border-radius: 20px;
+	margin: 15px;
+}
+
+.inputs textarea {
+	margin: 4px;
+	margin-left: 13%;
+	width: 70%;
+	align-self: center;
+}
+
+.inputs button {
+	position: absolute;
+	height: auto;
+	bottom: 9.8%;
+}

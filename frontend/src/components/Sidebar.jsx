@@ -3,7 +3,7 @@ import { NavLink } from "react-router-dom";
 function Sidebar() {
 	return (
 		<aside className="sidebar">
-			<h1>CubeAI</h1>
+			<h1>Ntimer</h1>
 			<nav>
 				<NavLink className="nav-btn" to="/timer">
 					Timer
