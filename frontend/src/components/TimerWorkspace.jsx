@@ -50,6 +50,7 @@ function TimerWorkspace({ solves, event, session, setSolves }) {
 	});
 
 	const API_URL = "https://cubeai-k2fg.onrender.com";
+	const contain = "http://localhost:8000";
 
 	usefulSolves.reverse();
 

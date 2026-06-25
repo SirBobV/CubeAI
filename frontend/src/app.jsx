@@ -30,6 +30,22 @@ function App() {
 		setSolves(data);
 	}
 
+	async function sendMessage(userInput) {
+		const response = await fetch("https://cubeai-k2fg.onrender.com/trainer", {
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json",
+			},
+			body: JSON.stringify({
+				message: userInput,
+				user_id: 1,
+			}),
+		});
+		const data = await response.json();
+		console.log(data.answer);
+		return data;
+	}
+
 	useEffect(() => {
 		fetch(Server)
 			.then((res) => res.json())
@@ -74,7 +90,10 @@ function App() {
 					path="/algorithms/cll"
 					element={<AlgorithmsPage category="CLL" />}
 				/>
-				<Route path="/trainer" element={<TrainerPage />} />
+				<Route
+					path="/trainer"
+					element={<TrainerPage sendMessage={sendMessage} />}
+				/>
 			</Routes>
 		</div>
 	);

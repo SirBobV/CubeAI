@@ -4,7 +4,11 @@ function GPTcontainer({ messages }) {
 	return (
 		<div className="outputs">
 			{messages.map((message, index) => (
-				<h3 key={index} className={message.sender}>
+				<h3
+					key={index}
+					className={message.sender}
+					style={{ whiteSpace: "pre-wrap" }}
+				>
 					{message.text}
 				</h3>
 			))}
@@ -26,11 +30,11 @@ function InputBox({ answer, sendAnswer, setAnswer, handleKeyDown }) {
 	);
 }
 
-function TrainerPage() {
+function TrainerPage({ sendMessage }) {
 	const [messages, setMessages] = useState([]);
 	const [answer, setAnswer] = useState("");
 
-	function sendAnswer() {
+	async function sendAnswer() {
 		if (!answer.trim()) return;
 
 		console.log("Sending:", answer);
@@ -40,11 +44,13 @@ function TrainerPage() {
 			sender: "user",
 		};
 
+		const responseData = await sendMessage(answer);
+
 		const newResponse = {
-			text: "nah",
+			text: responseData.answer,
 			sender: "bot",
 		};
-		setMessages([...messages, newMessage, newResponse]);
+		setMessages((prev) => [...prev, newMessage, newResponse]);
 
 		setAnswer("");
 	}

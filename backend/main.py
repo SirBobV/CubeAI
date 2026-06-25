@@ -3,7 +3,12 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 import sqlite3
+import requests
+import os
+from dotenv import load_dotenv
+load_dotenv()
 
+#region SQL
 app = FastAPI()
 
 app.add_middleware(
@@ -87,3 +92,26 @@ def update_penalty(solve_id: int, penalty: int):
     conn.close()
 
     return {"status": "ok"}
+#endregion SQL
+
+class TrainerRequest(BaseModel):
+    message: str
+    user_id: int
+
+@app.post("/trainer")
+async def trainer(request: TrainerRequest):
+
+    response = requests.post(
+        "http://localhost:11434/api/generate",
+        json={
+            "model": "llama3",
+            "prompt": request.message,
+            "stream": False
+        }
+    )
+
+    data = response.json()
+
+    return {
+        "answer": data["response"]
+    }

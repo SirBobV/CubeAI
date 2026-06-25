@@ -419,9 +419,10 @@ body {
 	display: flex;
 	flex-direction: column;
 	background-color: var(--l1);
-	height: 80%;
+	height: 75vh;
 	width: 100%;
 	border-radius: 20px;
+	overflow: scroll;
 }
 
 .bot {
@@ -456,5 +457,7 @@ body {
 .inputs button {
 	position: absolute;
 	height: auto;
-	bottom: 9.8%;
+	bottom: 8.5vh;
+	margin-left: 8px;
+	scale: 170%;
 }
